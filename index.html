@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+    <h1>Color palettes 4 GEE</h1>
+
+    <p>This little tool removes the "#" from the colour palettes provided by <a href="https://colorbrewer2.org">colorbrewer2.org</a> </p>
+    <p>Simply visit the website, choose a palette, copy the Colours as a <em>JavaScript Array</em> and paste it in the input field here </p>
+
+    <label for="colors">Colours</label>
+    <input type="text" id="colors" name="Colours">
+    <button type="button" onclick="getInputValue();">Cleanup!</button>
+    <p id="result"></p>
+    <script>
+        function getInputValue() {
+        // Selecting the input element and get its value 
+        let myval = document.getElementById("colors").value;
+        var myval2 = myval.replace("[","").replace("]","").split(",");
+        var myval3 = [];
+        for (let i = 0; i < myval2.length; i++){
+            clean = myval2[i].replaceAll("'","").replace("#","")
+            myval3.push(clean)
+            //console.log(clean)
+        }
+        // Displaying the value
+        var res = myval3.join()
+        //console.log(res)
+        //alert(res);
+        document.getElementById("result").innerHTML = res;
+      }
+        //var myval = "['#fff7ec','#fee8c8','#fdd49e','#fdbb84','#fc8d59','#ef6548','#d7301f','#b30000','#7f0000']"
+
+    </script>
+</body>
+</html>
