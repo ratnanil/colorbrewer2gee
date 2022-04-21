@@ -13,7 +13,7 @@
         .content{
             background: #c5c7c6;
             max-width: 500px; 
-            margin: 100px auto;
+            margin: 5px auto;
             padding: 10px;
             color: #444;
         }
@@ -23,57 +23,53 @@
             display: grid;
             z-index: -100; 
             position: absolute;
-            margin-top: -200px;
+        }
+        .main{
+            margin: 0;
         }
         </style> 
 
 </head>
 <body>
-    <div id="result2" style=""></div>
-
-    <div class="content">
-
+    <div class="main">
 
     
-    <h1 style="text-align: center;">Color palettes for GEE</h1>
+        <div id="result2"></div>
 
-    <p>GoogleEarthEngine (GEE) accepts colour palettes as a string of comma sperated hex values without the <code>#</code> sign.
-    I haven't found a website where I can export a colourplatte in this format, and I'm not happy about manually cleaning up my hex values very often.</p>
-    <p> I therefore created this little tool which cleans up colour palettes provided by <a href="https://colorbrewer2.org">colorbrewer2.org</a> </p>
-    <p>Simply go to <a href="https://colorbrewer2.org">colorbrewer2.org</a> and export the desired palette as hex values in a <em>JavaScript Array</em>.
-        Paste this array into the input field below and hit <code>Cleanup!</code>
-    </p>
+        <div class="content">
+            <h1 style="text-align: center;">Color palettes for GEE</h1>
 
-    <label for="colors">Colours</label>
-    <input type="text" id="colors" name="Colours">
-    <button type="button" onclick="getInputValue();">Cleanup!</button>
+            <p>GoogleEarthEngine (GEE) accepts colour palettes as a string of comma sperated hex values without the <code>#</code> sign.
+            I haven't found a website where I can export a colourplatte in this format, and I'm not happy about manually cleaning up my hex values very often.</p>
+            <p> I therefore created this little tool which cleans up colour palettes provided by <a href="https://colorbrewer2.org">colorbrewer2.org</a> </p>
+            <p>Simply go to <a href="https://colorbrewer2.org">colorbrewer2.org</a> and export the desired palette as hex values in a <em>JavaScript Array</em>.
+                Paste this array into the input field below and hit <code>Cleanup!</code>
+            </p>
 
-    <p id="result" style="text-align: center;"></p>
+            <label for="colors">Colours</label>
+            <input type="text" id="colors" name="Colours" value="['#e5f5f9','#99d8c9','#2ca25f']">
+            <button type="button" onclick="getInputValue();">Cleanup!</button>
 
-    
-
-    </div>
-    
-
-    <!--<img src="screenshot.png" alt="" width="500px">-->
-
+            <p id="result" style="text-align: center;"></p>
+        </div>
     </div>
     <script>
         function getInputValue() {
-        let myval = document.getElementById("colors").value;
-        var myval2 = myval.replace("[","").replace("]","").split(",");
+            document.getElementById("result2").innerHTML = '';
+            let myval = document.getElementById("colors").value;
+            let myval2 = myval.replace("[","").replace("]","").split(",");
 
-        myval2.length;
-        var myval3 = [];
-        for (let i = 0; i < myval2.length; i++){
-            clean = myval2[i].replaceAll("'","")
-            clean2 = clean.replace("#","")
-            myval3.push(clean2)
-            var newDiv = document.createElement("div");
-            newDiv.style.cssText = "background-color:"+clean+";";
-            document.getElementById("result2").appendChild(newDiv);
+            myval2.length;
+            var myval3 = [];
+            for (let i = 0; i < myval2.length; i++){
+                clean = myval2[i].replaceAll("'","")
+                clean2 = clean.replace("#","")
+                myval3.push(clean2)
+                let newDiv = document.createElement("div");
+                newDiv.style.cssText = "background-color:"+clean+";";
+                document.getElementById("result2").appendChild(newDiv);
         }
-        var res = myval3.join()
+        let res = myval3.join()
         document.getElementById("result").innerHTML = res;
       }
 
